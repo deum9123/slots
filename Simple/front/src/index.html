@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-control" content="public">
+    <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            user-select: none;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+        }
+        img {
+            user-drag: none;
+            -webkit-user-drag: none;
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+        html, body{
+            touch-action: none;
+            -webkit-touch-callout: none;
+            -webkit-user-select:none;
+            -khtml-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+            outline:0;
+        }
+        body{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+        .startloading-wrapper{
+            width: 100%;
+            height: 100%;
+            background-color: #0044b2;
+            background-repeat: repeat;
+            display: flex;
+            position: absolute;
+            color: white;
+            font-size: 40px;
+            z-index: 400;
+            flex-direction: column;
+            row-gap: 20px;
+        }
+        .startloading-progressbar{
+            position: relative;
+            height: 30px;
+            width: 600px;
+            border: solid 2px white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 25px;
+        }
+        .center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #startloading-background{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            left: -100%;
+            transition: all 0.1s;
+            background: white;
+            border-radius: 20px;
+        }
+        #startloading-text{
+            height: 50px;
+            margin-top: 30p;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div id="startloading-wrapper" class="startloading-wrapper center">
+            <div id="startloading-text"></div>
+        <div class="startloading-progressbar">
+            <div id="startloading-background"></div>
+        </div>
+    </div>
+    </div>
+    <div id="root" class="root">
+        <div id="gamePage" class="gamePage">
+            <div id="gamePositionTable" class="gamePositionTable" widgetId="GamePositionTable"></div>
+        </div>
+    </div>
+</body>
+<script>
+    const resizeWindow = (event) => {
+        const width = 1920;
+        const height = 1080;
+    
+        const ratio = width / height;
+        const innerWidth = event.target.innerWidth;
+        const innerHeight = event.target.innerHeight;
+        const currentRatio = innerWidth / innerHeight;
+    
+        const newRatioWidth = innerWidth / width;
+        const newRatioHeight = innerHeight / height;
+        const newRatio = currentRatio > ratio ? newRatioHeight : newRatioWidth;
+    
+        const loader = document.getElementById('startloading-wrapper');
+        loader.style.zoom = `${newRatio}`;
+    };
+    
+    const resize = () => {
+        resizeWindow({target: {innerWidth: window.innerWidth, innerHeight: window.innerHeight}});
+        window.addEventListener('resize', resizeWindow);
+    };
+
+    resize();
+</script>
+</html>

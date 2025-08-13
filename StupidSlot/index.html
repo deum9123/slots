@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>3-Барабанный Слот</title>
+<style>
+  body { font-family: sans-serif; text-align: center; background: #222; color: #fff; }
+  canvas { background: #444; border-radius: 10px; margin: 10px; }
+  button { margin-top: 20px; padding: 10px 20px; font-size: 1.2em; cursor: pointer; border: none; border-radius: 5px; background: gold; color: #000; }
+  .result { margin-top: 20px; font-size: 1.2em; }
+</style>
+</head>
+<body>
+<h1>🎰 Слот-машина</h1>
+<canvas id="slotCanvas" width="300" height="120"></canvas>
+<button onclick="spin()">Крутить</button>
+<div class="result" id="result"></div>
+
+<script>
+const symbols = ["🍒", "🍋", "🍊", "⭐", "💎"];
+const payouts = {"🍒": 10, "🍋": 20, "🍊": 30, "⭐": 50, "💎": 100};
+const ctx = document.getElementById("slotCanvas").getContext("2d");
+const reelCount = 3;
+const reelHeight = 80;
+let reels = Array.from({ length: reelCount }, () => ({ pos: 0, speed: 0, target: 0, result: "" }));
+
+function drawReels() {
+  ctx.clearRect(0, 0, 300, 120);
+  reels.forEach((reel, i) => {
+    const y = reel.pos % reelHeight;
+    ctx.fillStyle = "#333";
+    ctx.fillRect(i * 100 + 10, 20, 80, 80);
+    ctx.font = "40px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    const symbolIndex = Math.floor(reel.pos / reelHeight) % symbols.length;
+    ctx.fillText(symbols[symbolIndex], i * 100 + 50, 60);
+  });
+}
+
+function animate() {
+  let spinning = false;
+  reels.forEach(reel => {
+    if (reel.speed > 0) {
+      spinning = true;
+      reel.pos += reel.speed;
+      if (reel.pos >= reel.target) {
+        reel.pos = reel.target;
+        reel.speed = 0;
+        reel.result = symbols[Math.floor(reel.pos / reelHeight) % symbols.length];
+      }
+    }
+  });
+  drawReels();
+  if (spinning) requestAnimationFrame(animate);
+  else checkWin();
+}
+
+function spin() {
+  document.getElementById("result").textContent = "";
+  let delay = 0;
+  reels.forEach((reel, i) => {
+    reel.pos = 0;
+    reel.speed = 25;
+    const spins = Math.floor(Math.random() * 10) + 10;
+    const stopSymbol = Math.floor(Math.random() * symbols.length);
+    reel.target = (spins * reelHeight) + (stopSymbol * reelHeight);
+    setTimeout(() => {
+      requestAnimationFrame(animate);
+    }, delay);
+    delay += 500; // задержка для последовательной остановки барабанов
+  });
+}
+
+function checkWin() {
+  if (reels[0].result && reels[0].result === reels[1].result && reels[1].result === reels[2].result) {
+    document.getElementById("result").textContent = `Вы выиграли ${payouts[reels[0].result]} монет!`;
+  } else {
+    document.getElementById("result").textContent = "Нет выигрыша";
+  }
+}
+
+drawReels();
+</script>
+</body>
+</html>

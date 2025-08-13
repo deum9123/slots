@@ -1,0 +1,407 @@
+import {CARD_VALUES, SUITS} from './Cards';
+
+export const BETS = {
+    LO: 'lo',
+    HI: 'hi',
+    /* Rows */
+    RAW_2_5_8_J: 'raw_2_5_8_J',
+    RAW_3_6_9_Q: 'raw_3_6_9_Q',
+    RAW_4_7_10_K: 'raw_4_7_10_K',
+    /* Columns */
+    COLUMN_2_3_4: 'column_2_3_4',
+    COLUMN_5_6_7: 'column_5_6_7',
+    COLUMN_8_9_10: 'column_8_9_10',
+    COLUMN_J_Q_K: 'column_J_Q_K',
+    /* Pairs columns */
+    PAIR_2_3: 'pair_2_3',
+    PAIR_3_4: 'pair_3_4',
+    PAIR_5_6: 'pair_5_6',
+    PAIR_6_7: 'pair_6_7',
+    PAIR_8_9: 'pair_8_9',
+    PAIR_9_10: 'pair_9_10',
+    PAIR_J_Q: 'pair_J_Q',
+    PAIR_Q_K: 'pair_Q_K',
+    /* Pairs rows */
+    PAIR_2_5: 'pair_2_5',
+    PAIR_3_6: 'pair_3_6',
+    PAIR_4_7: 'pair_4_7',
+    PAIR_5_8: 'pair_5_8',
+    PAIR_6_9: 'pair_6_9',
+    PAIR_7_10: 'pair_7_10',
+    PAIR_8_J: 'pair_8_J',
+    PAIR_9_Q: 'pair_9_Q',
+    PAIR_10_K: 'pair_10_K',
+    PAIR_J_A: 'pair_J_A',
+    PAIR_Q_A: 'pair_Q_A',
+    PAIR_K_A: 'pair_K_A',
+    /* SQUARES */
+    SQUARE_2_3_5_6: 'square_2_3_5_6',
+    SQUARE_3_4_6_7: 'square_3_4_6_7',
+    SQUARE_5_6_8_9: 'square_5_6_8_9',
+    SQUARE_6_7_9_10: 'square_6_7_9_10',
+    SQUARE_8_9_J_Q: 'square_8_9_J_Q',
+    SQUARE_9_10_Q_K: 'square_9_10_Q_K',
+    /* Triplets */
+    TRIPLET_J_Q_A: 'triplet_J_Q_A',
+    TRIPLET_Q_K_A: 'triplet_Q_K_A',
+    /* Suits */
+    [SUITS.D]: `${SUITS.D}`,
+    [SUITS.H]: `${SUITS.H}`,
+    [SUITS.C]: `${SUITS.C}`,
+    [SUITS.S]: `${SUITS.S}`,
+    SUIT_H_D: `${SUITS.D}_${SUITS.H}`,
+    SUIT_C_S: `${SUITS.C}_${SUITS.S}`,
+    /* Singles */
+    [CARD_VALUES.C_2]: `${CARD_VALUES.C_2}`,
+    [CARD_VALUES.C_3]: `${CARD_VALUES.C_3}`,
+    [CARD_VALUES.C_4]: `${CARD_VALUES.C_4}`,
+    [CARD_VALUES.C_5]: `${CARD_VALUES.C_5}`,
+    [CARD_VALUES.C_6]: `${CARD_VALUES.C_6}`,
+    [CARD_VALUES.C_7]: `${CARD_VALUES.C_7}`,
+    [CARD_VALUES.C_8]: `${CARD_VALUES.C_8}`,
+    [CARD_VALUES.C_9]: `${CARD_VALUES.C_9}`,
+    [CARD_VALUES.C_10]: `${CARD_VALUES.C_10}`,
+    [CARD_VALUES.C_J]: `${CARD_VALUES.C_J}`,
+    [CARD_VALUES.C_Q]: `${CARD_VALUES.C_Q}`,
+    [CARD_VALUES.C_K]: `${CARD_VALUES.C_K}`,
+    [CARD_VALUES.C_A]: `${CARD_VALUES.C_A}`,
+};
+
+export const BETS_LIST = [
+    CARD_VALUES.C_2,
+    CARD_VALUES.C_3,
+    CARD_VALUES.C_4,
+    CARD_VALUES.C_5,
+    CARD_VALUES.C_6,
+    CARD_VALUES.C_7,
+    CARD_VALUES.C_8,
+    CARD_VALUES.C_9,
+    CARD_VALUES.C_10,
+    CARD_VALUES.C_J,
+    CARD_VALUES.C_Q,
+    CARD_VALUES.C_K,
+    CARD_VALUES.C_A,
+];
+
+export const BETS_VALUES = {
+    [BETS.LO]: [BETS.LO],
+    [BETS.HI]: [BETS.HI],
+    /* Rows */
+    [BETS.RAW_2_5_8_J]: [CARD_VALUES.C_2, CARD_VALUES.C_5, CARD_VALUES.C_8, CARD_VALUES.C_J],
+    [BETS.RAW_3_6_9_Q]: [CARD_VALUES.C_3, CARD_VALUES.C_6, CARD_VALUES.C_9, CARD_VALUES.C_Q],
+    [BETS.RAW_4_7_10_K]: [CARD_VALUES.C_4, CARD_VALUES.C_7, CARD_VALUES.C_10, CARD_VALUES.C_K],
+    /* Columns */
+    [BETS.COLUMN_2_3_4]: [CARD_VALUES.C_2, CARD_VALUES.C_3, CARD_VALUES.C_4],
+    [BETS.COLUMN_5_6_7]: [CARD_VALUES.C_5, CARD_VALUES.C_6, CARD_VALUES.C_7],
+    [BETS.COLUMN_8_9_10]: [CARD_VALUES.C_8, CARD_VALUES.C_9, CARD_VALUES.C_10],
+    [BETS.COLUMN_J_Q_K]: [CARD_VALUES.C_J, CARD_VALUES.C_Q, CARD_VALUES.C_K],
+    /* Pairs columns */
+    [BETS.PAIR_2_3]: [CARD_VALUES.C_2, CARD_VALUES.C_3],
+    [BETS.PAIR_3_4]: [CARD_VALUES.C_3, CARD_VALUES.C_4],
+    [BETS.PAIR_5_6]: [CARD_VALUES.C_5, CARD_VALUES.C_6],
+    [BETS.PAIR_6_7]: [CARD_VALUES.C_6, CARD_VALUES.C_7],
+    [BETS.PAIR_8_9]: [CARD_VALUES.C_8, CARD_VALUES.C_9],
+    [BETS.PAIR_9_10]: [CARD_VALUES.C_9, CARD_VALUES.C_10],
+    [BETS.PAIR_J_Q]: [CARD_VALUES.C_J, CARD_VALUES.C_Q],
+    [BETS.PAIR_Q_K]: [CARD_VALUES.C_Q, CARD_VALUES.C_K],
+    /* Pairs rows */
+    [BETS.PAIR_2_5]: [CARD_VALUES.C_2, CARD_VALUES.C_5],
+    [BETS.PAIR_3_6]: [CARD_VALUES.C_3, CARD_VALUES.C_6],
+    [BETS.PAIR_4_7]: [CARD_VALUES.C_4, CARD_VALUES.C_7],
+    [BETS.PAIR_5_8]: [CARD_VALUES.C_5, CARD_VALUES.C_8],
+    [BETS.PAIR_6_9]: [CARD_VALUES.C_6, CARD_VALUES.C_9],
+    [BETS.PAIR_7_10]: [CARD_VALUES.C_7, CARD_VALUES.C_10],
+    [BETS.PAIR_8_J]: [CARD_VALUES.C_8, CARD_VALUES.C_J],
+    [BETS.PAIR_9_Q]: [CARD_VALUES.C_9, CARD_VALUES.C_Q],
+    [BETS.PAIR_10_K]: [CARD_VALUES.C_10, CARD_VALUES.C_K],
+    [BETS.PAIR_J_A]: [CARD_VALUES.C_J, CARD_VALUES.C_A],
+    [BETS.PAIR_Q_A]: [CARD_VALUES.C_Q, CARD_VALUES.C_A],
+    [BETS.PAIR_K_A]: [CARD_VALUES.C_K, CARD_VALUES.C_A],
+    /* SQUARES */
+    [BETS.SQUARE_2_3_5_6]: [CARD_VALUES.C_2, CARD_VALUES.C_3, CARD_VALUES.C_5, CARD_VALUES.C_6],
+    [BETS.SQUARE_3_4_6_7]: [CARD_VALUES.C_3, CARD_VALUES.C_4, CARD_VALUES.C_6, CARD_VALUES.C_7],
+    [BETS.SQUARE_5_6_8_9]: [CARD_VALUES.C_5, CARD_VALUES.C_6, CARD_VALUES.C_8, CARD_VALUES.C_9],
+    [BETS.SQUARE_6_7_9_10]: [CARD_VALUES.C_6, CARD_VALUES.C_7, CARD_VALUES.C_9, CARD_VALUES.C_10],
+    [BETS.SQUARE_8_9_J_Q]: [CARD_VALUES.C_8, CARD_VALUES.C_9, CARD_VALUES.C_J, CARD_VALUES.C_Q],
+    [BETS.SQUARE_9_10_Q_K]: [CARD_VALUES.C_9, CARD_VALUES.C_10, CARD_VALUES.C_Q, CARD_VALUES.C_K],
+
+    /* Triplets */
+    [BETS.TRIPLET_J_Q_A]: [CARD_VALUES.C_J, CARD_VALUES.C_Q, CARD_VALUES.C_A],
+    [BETS.TRIPLET_Q_K_A]: [CARD_VALUES.C_Q, CARD_VALUES.C_K, CARD_VALUES.C_A],
+
+    /* Suits */
+    [SUITS.D]: [SUITS.D],
+    [SUITS.H]: [SUITS.H],
+    [SUITS.C]: [SUITS.C],
+    [SUITS.S]: [SUITS.S],
+    [BETS.SUIT_H_D]: [SUITS.D, SUITS.H],
+    [BETS.SUIT_C_S]: [SUITS.C, SUITS.S],
+
+    /* Single */
+    [CARD_VALUES.C_2]: [CARD_VALUES.C_2],
+    [CARD_VALUES.C_3]: [CARD_VALUES.C_3],
+    [CARD_VALUES.C_4]: [CARD_VALUES.C_4],
+    [CARD_VALUES.C_5]: [CARD_VALUES.C_5],
+    [CARD_VALUES.C_6]: [CARD_VALUES.C_6],
+    [CARD_VALUES.C_7]: [CARD_VALUES.C_7],
+    [CARD_VALUES.C_8]: [CARD_VALUES.C_8],
+    [CARD_VALUES.C_9]: [CARD_VALUES.C_9],
+    [CARD_VALUES.C_10]: [CARD_VALUES.C_10],
+    [CARD_VALUES.C_J]: [CARD_VALUES.C_J],
+    [CARD_VALUES.C_Q]: [CARD_VALUES.C_Q],
+    [CARD_VALUES.C_K]: [CARD_VALUES.C_K],
+    [CARD_VALUES.C_A]: [CARD_VALUES.C_A],
+};
+
+export const BETS_COEFS = {
+    /* Rows */
+    [BETS.RAW_2_5_8_J]: 300,
+    [BETS.RAW_3_6_9_Q]: 300,
+    [BETS.RAW_4_7_10_K]: 300,
+
+    /* Columns */
+    [BETS.COLUMN_2_3_4]: 400,
+    [BETS.COLUMN_5_6_7]: 400,
+    [BETS.COLUMN_8_9_10]: 400,
+    [BETS.COLUMN_J_Q_K]: 400,
+
+    /* Squares */
+    [BETS.SQUARE_2_3_5_6]: 300,
+    [BETS.SQUARE_3_4_6_7]: 300,
+    [BETS.SQUARE_5_6_8_9]: 300,
+    [BETS.SQUARE_6_7_9_10]: 300,
+    [BETS.SQUARE_8_9_J_Q]: 300,
+    [BETS.SQUARE_9_10_Q_K]: 300,
+
+    /* Triplets */
+    [BETS.TRIPLET_J_Q_A]: 400,
+    [BETS.TRIPLET_Q_K_A]: 400,
+
+    /* Pairs columns */
+    [BETS.PAIR_2_3]: 600,
+    [BETS.PAIR_3_4]: 600,
+    [BETS.PAIR_5_6]: 600,
+    [BETS.PAIR_6_7]: 600,
+    [BETS.PAIR_8_9]: 600,
+    [BETS.PAIR_9_10]: 600,
+    [BETS.PAIR_J_Q]: 600,
+    [BETS.PAIR_Q_K]: 600,
+    /* Pairs rows */
+    [BETS.PAIR_2_5]: 600,
+    [BETS.PAIR_3_6]: 600,
+    [BETS.PAIR_4_7]: 600,
+    [BETS.PAIR_5_8]: 600,
+    [BETS.PAIR_6_9]: 600,
+    [BETS.PAIR_7_10]: 600,
+    [BETS.PAIR_8_J]: 600,
+    [BETS.PAIR_9_Q]: 600,
+    [BETS.PAIR_10_K]: 600,
+    [BETS.PAIR_J_A]: 600,
+    [BETS.PAIR_Q_A]: 600,
+    [BETS.PAIR_K_A]: 600,
+
+    /* Suits */
+    [SUITS.D]: 300,
+    [SUITS.H]: 300,
+    [SUITS.C]: 300,
+    [SUITS.S]: 300,
+    [BETS.SUIT_H_D]: 200,
+    [BETS.SUIT_C_S]: 200,
+
+    /* Single */
+    [CARD_VALUES.C_2]: 1200,
+    [CARD_VALUES.C_3]: 1200,
+    [CARD_VALUES.C_4]: 1200,
+    [CARD_VALUES.C_5]: 1200,
+    [CARD_VALUES.C_6]: 1200,
+    [CARD_VALUES.C_7]: 1200,
+    [CARD_VALUES.C_8]: 1200,
+    [CARD_VALUES.C_9]: 1200,
+    [CARD_VALUES.C_10]: 1200,
+    [CARD_VALUES.C_J]: 1200,
+    [CARD_VALUES.C_Q]: 1200,
+    [CARD_VALUES.C_K]: 1200,
+    [CARD_VALUES.C_A]: 1200,
+};
+
+export const BET_TYPE_NAMES = {
+    SINGLE: 'single',
+    PAIR: 'pair',
+    TRIPLET: 'triplet',
+    SUIT: 'suit',
+    SUIT_PAIR: 'suitsPair',
+    QUAD: 'quad',
+    HILO: 'hilo',
+};
+
+export const BET_TYPES = {
+    /* singles */
+    [CARD_VALUES.C_2]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_3]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_4]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_5]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_6]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_7]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_8]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_9]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_10]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_J]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_Q]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_K]: BET_TYPE_NAMES.SINGLE,
+    [CARD_VALUES.C_A]: BET_TYPE_NAMES.SINGLE,
+
+    /* pairs */
+    [BETS.PAIR_2_3]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_3_4]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_5_6]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_6_7]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_8_9]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_9_10]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_J_Q]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_Q_K]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_2_5]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_3_6]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_4_7]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_5_8]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_6_9]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_7_10]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_8_J]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_9_Q]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_10_K]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_J_A]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_Q_A]: BET_TYPE_NAMES.PAIR,
+    [BETS.PAIR_K_A]: BET_TYPE_NAMES.PAIR,
+
+    /* triplets */
+    [BETS.COLUMN_2_3_4]: BET_TYPE_NAMES.TRIPLET,
+    [BETS.COLUMN_5_6_7]: BET_TYPE_NAMES.TRIPLET,
+    [BETS.COLUMN_8_9_10]: BET_TYPE_NAMES.TRIPLET,
+    [BETS.COLUMN_J_Q_K]: BET_TYPE_NAMES.TRIPLET,
+    [BETS.TRIPLET_J_Q_A]: BET_TYPE_NAMES.TRIPLET,
+    [BETS.TRIPLET_Q_K_A]: BET_TYPE_NAMES.TRIPLET,
+    /* suits */
+    [SUITS.D]: BET_TYPE_NAMES.SUIT,
+    [SUITS.H]: BET_TYPE_NAMES.SUIT,
+    [SUITS.C]: BET_TYPE_NAMES.SUIT,
+    [SUITS.S]: BET_TYPE_NAMES.SUIT,
+
+    /* suits pairs */
+    [BETS.SUIT_H_D]: BET_TYPE_NAMES.SUIT_PAIR,
+    [BETS.SUIT_C_S]: BET_TYPE_NAMES.SUIT_PAIR,
+
+    /* Quads */
+    [BETS.RAW_2_5_8_J]: BET_TYPE_NAMES.QUAD,
+    [BETS.RAW_3_6_9_Q]: BET_TYPE_NAMES.QUAD,
+    [BETS.RAW_4_7_10_K]: BET_TYPE_NAMES.QUAD,
+    [BETS.SQUARE_2_3_5_6]: BET_TYPE_NAMES.QUAD,
+    [BETS.SQUARE_3_4_6_7]: BET_TYPE_NAMES.QUAD,
+    [BETS.SQUARE_5_6_8_9]: BET_TYPE_NAMES.QUAD,
+    [BETS.SQUARE_6_7_9_10]: BET_TYPE_NAMES.QUAD,
+    [BETS.SQUARE_8_9_J_Q]: BET_TYPE_NAMES.QUAD,
+    [BETS.SQUARE_9_10_Q_K]: BET_TYPE_NAMES.QUAD,
+
+    /* HiLo */
+    [BETS.HI]: BET_TYPE_NAMES.HILO,
+    [BETS.LO]: BET_TYPE_NAMES.HILO,
+};
+
+export const BET_TYPE_BETS = {
+    [BET_TYPE_NAMES.SINGLE]: [
+        CARD_VALUES.C_2,
+        CARD_VALUES.C_3,
+        CARD_VALUES.C_4,
+        CARD_VALUES.C_5,
+        CARD_VALUES.C_6,
+        CARD_VALUES.C_7,
+        CARD_VALUES.C_8,
+        CARD_VALUES.C_9,
+        CARD_VALUES.C_10,
+        CARD_VALUES.C_J,
+        CARD_VALUES.C_Q,
+        CARD_VALUES.C_K,
+        CARD_VALUES.C_A,
+    ],
+
+    [BET_TYPE_NAMES.PAIR]: [
+        BETS.PAIR_2_3,
+        BETS.PAIR_3_4,
+        BETS.PAIR_5_6,
+        BETS.PAIR_6_7,
+        BETS.PAIR_8_9,
+        BETS.PAIR_9_10,
+        BETS.PAIR_J_Q,
+        BETS.PAIR_Q_K,
+        BETS.PAIR_2_5,
+        BETS.PAIR_3_6,
+        BETS.PAIR_4_7,
+        BETS.PAIR_5_8,
+        BETS.PAIR_6_9,
+        BETS.PAIR_7_10,
+        BETS.PAIR_8_J,
+        BETS.PAIR_9_Q,
+        BETS.PAIR_10_K,
+        BETS.PAIR_J_A,
+        BETS.PAIR_Q_A,
+        BETS.PAIR_K_A,
+    ],
+
+    [BET_TYPE_NAMES.TRIPLET]: [
+        BETS.COLUMN_2_3_4,
+        BETS.COLUMN_5_6_7,
+        BETS.COLUMN_8_9_10,
+        BETS.COLUMN_J_Q_K,
+        BETS.TRIPLET_J_Q_A,
+        BETS.TRIPLET_Q_K_A,
+    ],
+
+    [BET_TYPE_NAMES.QUAD]: [
+        BETS.RAW_2_5_8_J,
+        BETS.RAW_3_6_9_Q,
+        BETS.RAW_4_7_10_K,
+        BETS.SQUARE_2_3_5_6,
+        BETS.SQUARE_3_4_6_7,
+        BETS.SQUARE_5_6_8_9,
+        BETS.SQUARE_6_7_9_10,
+        BETS.SQUARE_8_9_J_Q,
+        BETS.SQUARE_9_10_Q_K,
+    ],
+
+    [BET_TYPE_NAMES.SUIT]: [SUITS.D, SUITS.H, SUITS.C, SUITS.S],
+
+    [BET_TYPE_NAMES.SUIT_PAIR]: [BETS.SUIT_H_D, BETS.SUIT_C_S],
+
+    [BET_TYPE_NAMES.HILO]: [BETS.HI, BETS.LO],
+};
+
+export const HI_LO_COEFS = {
+    [BETS.HI]: {
+        [CARD_VALUES.C_A]: 0,
+        [CARD_VALUES.C_K]: 130,
+        [CARD_VALUES.C_Q]: 65,
+        [CARD_VALUES.C_J]: 44,
+        [CARD_VALUES.C_10]: 33,
+        [CARD_VALUES.C_9]: 26,
+        [CARD_VALUES.C_8]: 22,
+        [CARD_VALUES.C_7]: 19,
+        [CARD_VALUES.C_6]: 16,
+        [CARD_VALUES.C_5]: 14,
+        [CARD_VALUES.C_4]: 13,
+        [CARD_VALUES.C_3]: 12,
+        [CARD_VALUES.C_2]: 11,
+    },
+    [BETS.LO]: {
+        [CARD_VALUES.C_A]: 11,
+        [CARD_VALUES.C_K]: 12,
+        [CARD_VALUES.C_Q]: 13,
+        [CARD_VALUES.C_J]: 14,
+        [CARD_VALUES.C_10]: 16,
+        [CARD_VALUES.C_9]: 19,
+        [CARD_VALUES.C_8]: 22,
+        [CARD_VALUES.C_7]: 26,
+        [CARD_VALUES.C_6]: 33,
+        [CARD_VALUES.C_5]: 44,
+        [CARD_VALUES.C_4]: 65,
+        [CARD_VALUES.C_3]: 130,
+        [CARD_VALUES.C_2]: 0,
+    },
+};

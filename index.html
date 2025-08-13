@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>3-Барабанный Слот</title>
+<style>
+  body { font-family: sans-serif; text-align: center; background: #222; color: #fff; }
+  canvas { background: #444; border-radius: 10px; margin: 10px; }
+  button { margin-top: 20px; padding: 10px 20px; font-size: 1.2em; cursor: pointer; border: none; border-radius: 5px; background: gold; color: #000; }
+  .result { margin-top: 20px; font-size: 1.2em; }
+</style>
+</head>
+<body>
+<h1>🎰 Слот-машина</h1>
+<canvas id="slotCanvas" width="300" height="240"></canvas>
+<button onclick="spin()">Крутить</button>
+<div class="result" id="result"></div>
+
+<script>
+const symbols = ["🍒", "🍋", "🍊", "⭐", "💎"];
+const payouts = {"🍒": 10, "🍋": 20, "🍊": 30, "⭐": 50, "💎": 100};
+const canvas = document.getElementById("slotCanvas");
+const ctx = canvas.getContext("2d");
+const reelCount = 3;
+const symbolHeight = 80;
+const totalHeight = symbols.length * symbolHeight;
+const START_DELAY = 30; // задержка между стартами
+
+const bufferCanvas = document.createElement('canvas');
+bufferCanvas.width = canvas.width;
+bufferCanvas.height = canvas.height;
+const bufferCtx = bufferCanvas.getContext('2d');
+
+let reels = Array.from({ length: reelCount }, () => ({
+  pos: 0,
+  speed: 0,
+  phase: "idle", // idle, pre-bounce, spinning, finalizing
+  result: symbols[0],
+  targetPos: 0,
+  distanceLeft: 0,
+  distanceTotal: 0,
+  bounceLeft: 0,
+  bounceSpeed: 0,
+  finalSymbolNext: symbols[0],
+  extraRotations: 3
+}));
+
+function normalizePos(pos) {
+  pos = pos % totalHeight;
+  if (pos < 0) pos += totalHeight;
+  return pos;
+}
+
+function drawReels() {
+  bufferCtx.clearRect(0, 0, bufferCanvas.width, bufferCanvas.height);
+  bufferCtx.fillStyle = '#444';
+  bufferCtx.fillRect(0, 0, bufferCanvas.width, bufferCanvas.height);
+
+  reels.forEach((reel, i) => {
+    bufferCtx.save();
+    bufferCtx.beginPath();
+    bufferCtx.rect(i * 100 + 10, 0, 80, 240);
+    bufferCtx.clip();
+
+    const basePos = normalizePos(reel.pos);
+
+    for (let offset = -2; offset <= 2; offset++) {
+      const symbolIndex = (Math.floor(basePos / symbolHeight) + offset + symbols.length) % symbols.length;
+      let yPos = 120 + offset * symbolHeight - (basePos % symbolHeight);
+      bufferCtx.font = "40px sans-serif";
+      bufferCtx.textAlign = "center";
+      bufferCtx.textBaseline = "middle";
+      bufferCtx.fillText(symbols[symbolIndex], i * 100 + 50, yPos);
+    }
+
+    bufferCtx.restore();
+  });
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(bufferCanvas, 0, 0);
+}
+
+function animate() {
+  let spinning = false;
+
+  reels.forEach((reel, i) => {
+    if (reel.phase === "pre-bounce") {
+      spinning = true;
+      
+      // Двигаем вверх с замедлением
+      reel.pos += reel.bounceSpeed;
+      reel.bounceLeft -= Math.abs(reel.bounceSpeed);
+      
+      // Плавное замедление
+      reel.bounceSpeed *= 0.85;
+
+      if (Math.abs(reel.bounceSpeed) < 0.5 || reel.bounceLeft <= 0) {
+        // Переход в фазу вращения
+        reel.phase = "spinning";
+        reel.speed = -15;
+        // Пересчитываем точное расстояние с учетом bounce
+        const distanceToTarget = (reel.pos - reel.targetPos + totalHeight) % totalHeight;
+        reel.distanceLeft = totalHeight * reel.extraRotations + distanceToTarget;
+      }
+    }
+    else if (reel.phase === "spinning") {
+      spinning = true;
+      
+      // Основное вращение
+      reel.pos += reel.speed;
+      reel.distanceLeft -= Math.abs(reel.speed);
+
+      // Начинаем замедляться, когда осталось мало до остановки
+      if (reel.distanceLeft <= symbolHeight * 3) {
+        reel.speed *= 0.96;
+      }
+
+      // Переход в фазу точной остановки
+      if (reel.distanceLeft <= 0.5) {
+        reel.phase = "finalizing";
+      }
+    }
+    else if (reel.phase === "finalizing") {
+      spinning = true;
+      // Точная подгонка к нужной позиции
+      const distance = (reel.targetPos - reel.pos + totalHeight) % totalHeight;
+      if (distance > 2) {
+        reel.pos -= 2;
+      } else if (distance < -2) {
+        reel.pos += 2;
+      } else {
+        reel.pos = reel.targetPos;
+        reel.phase = "idle";
+        reel.speed = 0;
+      }
+    }
+  });
+
+  drawReels();
+
+  if (spinning) {
+    requestAnimationFrame(animate);
+  } else {
+    checkWin();
+  }
+}
+
+function startReelWithDelay(index, finalSymbol, extraRotations, delay) {
+  setTimeout(() => {
+    const reel = reels[index];
+    reel.extraRotations = extraRotations;
+
+    const startIndex = symbols.indexOf(reel.result);
+    reel.pos = startIndex * symbolHeight;
+    reel.result = finalSymbol;
+    reel.finalSymbolNext = finalSymbol;
+    reel.targetPos = symbols.indexOf(finalSymbol) * symbolHeight;
+
+    // Рассчитываем точное расстояние до цели
+    const distanceToTarget = (reel.pos - reel.targetPos + totalHeight) % totalHeight;
+    
+    // Гарантируем, что этот барабан остановится после предыдущего
+    if (index > 0) {
+      const prevReel = reels[index - 1];
+      const minDistance = prevReel.distanceLeft + symbolHeight * 3; // минимальный отступ
+      
+      // Если текущая дистанция меньше минимальной, добавляем полные обороты
+      let totalDistance = totalHeight * extraRotations + distanceToTarget + symbolHeight; // + bounce
+      while (totalDistance <= minDistance) {
+        extraRotations++;
+        totalDistance += totalHeight;
+      }
+      
+      reel.distanceTotal = totalDistance;
+      reel.extraRotations = extraRotations;
+    } else {
+      reel.distanceTotal = totalHeight * extraRotations + distanceToTarget + symbolHeight;
+    }
+    
+    reel.distanceLeft = reel.distanceTotal;
+
+    // Настройки bounce
+    reel.bounceLeft = symbolHeight;
+    reel.bounceSpeed = 10; // начальная скорость вверх
+    reel.phase = "pre-bounce";
+
+    // Запускаем анимацию, если она еще не идет
+    if (index === 0) {
+      requestAnimationFrame(animate);
+    }
+  }, delay);
+}
+
+function spin() {
+  document.getElementById("result").textContent = "";
+  const finalResults = ["⭐", "🍋", "🍒"];
+
+  reels.forEach((r, i) => {
+    r.phase = "idle";
+    r.speed = 0;
+    r.finalSymbolNext = finalResults[i];
+  });
+
+  // Запускаем каждый барабан с задержкой 0.5 секунды
+  for (let i = 0; i < reelCount; i++) {
+    startReelWithDelay(i, finalResults[i], 3, i * START_DELAY);
+  }
+}
+
+function checkWin() {
+  if (reels[0].result && reels[0].result === reels[1].result && reels[1].result === reels[2].result) {
+    document.getElementById("result").textContent = `Вы выиграли ${payouts[reels[0].result]} монет!`;
+  } else {
+    document.getElementById("result").textContent = "Нет выигрыша";
+  }
+}
+
+drawReels();
+</script>
+</body>
+</html>
